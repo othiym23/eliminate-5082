@@ -12,7 +12,9 @@ Finally identify and eliminate the root cause of [`npm/npm#5082`](https://github
 
 ## current hypotheses
 
-1. is a race condtion
+1. is two race condtions
+  - the source of #5082 is something that causes files to not be included in the packed tarball
+  - another one happens even more rarely within the npm cache and may be linked to multiple runs of npm operating on the cache simultaneously
 2. is occurring in either fstream, fstream-npm, fstream-ignore, or npm's `lib/utils/tar.js`
 3. seems to be happening more in Node.js 6.0.0:
   - https://twitter.com/SamVerschueren/status/725308337169006597
