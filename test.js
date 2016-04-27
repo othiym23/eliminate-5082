@@ -53,9 +53,9 @@ function genCache () {
   return join(cacheBase, randomBytes(8).toString('hex'))
 }
 
-function findInPackageTarball (path, opts, cb) {
+function findInPackageTarball (path, filename, opts, cb) {
   cb = once(cb)
-  var cmd = ['tfz', path, 'package/index.js']
+  var cmd = ['tfz', path, 'package/' + filename]
   opts = opts || {}
 
   var stdout = ''
@@ -82,7 +82,7 @@ function findInPackageTarball (path, opts, cb) {
   return child
 }
 
-function testBySubdirName (t, subdirName) {
+function testBySubdirName (t, subdirName, filename) {
   var cache = genCache()
   npm(
     [
@@ -99,12 +99,13 @@ function testBySubdirName (t, subdirName) {
       var tarballPath = join(__dirname, subdirName, tarballName)
       findInPackageTarball(
         tarballPath,
+        filename,
         {},
         function (err, code, stdout, stderr) {
           if (err) throw err
-          t.is(stdout, 'package/index.js\n')
+          t.matches(stdout, 'package/' + filename + '\n')
           t.notOk(stderr)
-          t.equal(code, 0, 'tar found index.js')
+          t.equal(code, 0, 'tar found ' + filename)
           rimraf.sync(tarballPath)
         }
       )
@@ -113,12 +114,14 @@ function testBySubdirName (t, subdirName) {
 }
 
 test('run scenarios concurrently', function (t) {
-  // 5 asserts per test, 4 tests
-  t.plan(5 * 4)
-  testBySubdirName(t, 'index-bare')
-  testBySubdirName(t, 'index-in-main')
-  testBySubdirName(t, 'index-in-files')
-  testBySubdirName(t, 'index-in-main-and-files')
+  // 5 asserts per test, 5 tests
+  t.plan(5 * 6)
+  testBySubdirName(t, 'index-bare', 'index.js')
+  testBySubdirName(t, 'index-in-main', 'index.js')
+  testBySubdirName(t, 'nondex-in-main', 'nondex.js')
+  testBySubdirName(t, 'index-in-files', 'index.js')
+  testBySubdirName(t, 'nondex-in-files', 'nondex.js')
+  testBySubdirName(t, 'index-in-main-and-files', 'index.js')
 })
 
 test('cleanup', function (t) {

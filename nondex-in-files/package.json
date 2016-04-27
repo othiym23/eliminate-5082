@@ -1,5 +1,5 @@
 {
-  "name": "index-in-main",
+  "name": "nondex-in-files",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,5 +8,7 @@
   "keywords": [],
   "author": "Forrest L Norvell <ogd@aoaioxxysz.net>",
   "license": "ISC",
-  "main": "index.js"
+  "files": [
+    "nondex.js"
+  ]
 }
