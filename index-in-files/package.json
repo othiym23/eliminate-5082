@@ -1,0 +1,14 @@
+{
+  "name": "index-in-files",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Forrest L Norvell <ogd@aoaioxxysz.net>",
+  "license": "ISC",
+  "files": [
+    "index.js"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "eliminate-5082",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test.js"
+  },
+  "keywords": [],
+  "author": "Forrest L Norvell <ogd@aoaioxxysz.net>",
+  "license": "ISC",
+  "devDependencies": {
+    "once": "^1.3.3",
+    "tap": "^5.7.1",
+    "which": "^1.2.4"
+  }
+}
