@@ -98,8 +98,6 @@ function testBySubdirName (t, subdirName, filename) {
         {},
         function (err, code, stdout, stderr) {
           if (err) throw err
-          t.matches(stdout, 'package/' + filename + '\n')
-          t.notOk(stderr)
           t.equal(
             code, 0,
             'tar found ' + filename + ' for ' + subdirName + ' scenario'
@@ -112,8 +110,8 @@ function testBySubdirName (t, subdirName, filename) {
 }
 
 test('run scenarios concurrently', function (t) {
-  // 5 asserts per test, 5 tests
-  t.plan(5 * 6)
+  // 3 asserts per test, 5 tests
+  t.plan(3 * 6)
   testBySubdirName(t, 'index-bare', 'index.js')
   testBySubdirName(t, 'index-in-main', 'index.js')
   testBySubdirName(t, 'nondex-in-main', 'nondex.js')

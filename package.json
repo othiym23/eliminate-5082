@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tap test.js"
+    "test": "node stress.js"
   },
   "keywords": [],
   "author": "Forrest L Norvell <ogd@aoaioxxysz.net>",
