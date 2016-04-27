@@ -8,6 +8,7 @@ Finally identify and eliminate the root cause of [`npm/npm#5082`](https://github
 2. happens during tarball creation, so can be triggered with `npm pack` (and doesn't require a full npm publish)
 3. so far, only observed to happen in packages where `main` is set
 4. doesn't just happen for `index.js`
+5. requires a pre-existing, shared cache
 
 ## current hypotheses
 

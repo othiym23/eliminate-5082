@@ -1,5 +1,4 @@
 var join = require('path').join
-var randomBytes = require('crypto').randomBytes
 var spawn = require('child_process').spawn
 
 var once = require('once')
@@ -9,7 +8,7 @@ var which = require('which')
 
 var npmBin = which.sync('npm')
 var tarBin = which.sync('tar')
-var cacheBase = join(__dirname, 'caches')
+var cache = join(__dirname, 'caches')
 var npm_config_cache = join(__dirname, 'generic_cache')
 
 // ripped from the headlines, by which I mean test/tap-common.js in the npm
@@ -49,10 +48,6 @@ function npm (cmd, opts, cb) {
   return child
 }
 
-function genCache () {
-  return join(cacheBase, randomBytes(8).toString('hex'))
-}
-
 function findInPackageTarball (path, filename, opts, cb) {
   cb = once(cb)
   var cmd = ['tfz', path, 'package/' + filename]
@@ -83,7 +78,6 @@ function findInPackageTarball (path, filename, opts, cb) {
 }
 
 function testBySubdirName (t, subdirName, filename) {
-  var cache = genCache()
   npm(
     [
       '--cache', cache,
@@ -105,7 +99,10 @@ function testBySubdirName (t, subdirName, filename) {
           if (err) throw err
           t.matches(stdout, 'package/' + filename + '\n')
           t.notOk(stderr)
-          t.equal(code, 0, 'tar found ' + filename)
+          t.equal(
+            code, 0,
+            'tar found ' + filename + ' for ' + subdirName + ' scenario'
+          )
           rimraf.sync(tarballPath)
         }
       )
@@ -125,6 +122,6 @@ test('run scenarios concurrently', function (t) {
 })
 
 test('cleanup', function (t) {
-  rimraf.sync(cacheBase)
+  rimraf.sync(cache)
   t.end()
 })
