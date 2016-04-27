@@ -88,8 +88,9 @@ function testBySubdirName (t, subdirName, filename) {
     function (err, code, stdout, stderr) {
       if (err) throw err
       t.equal(code, 0, 'npm thinks it worked')
-      t.notOk(stderr, 'no error output')
+      t.equal(stderr, '', 'no error output')
       var tarballName = stdout.trim()
+      if (!tarballName) t.bailout('not safe to proceed without tarball name')
       var tarballPath = join(__dirname, subdirName, tarballName)
       findInPackageTarball(
         tarballPath,
