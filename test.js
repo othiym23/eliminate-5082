@@ -106,16 +106,20 @@ function testBySubdirName (t, subdirName) {
           t.notOk(stderr)
           t.equal(code, 0, 'tar found index.js')
           rimraf.sync(tarballPath)
-          t.end()
         }
       )
     }
   )
 }
 
-test('index-in-main', function (t) { testBySubdirName(t, 'index-in-main') })
-test('index-in-main', function (t) { testBySubdirName(t, 'index-in-files') })
-test('index-in-main', function (t) { testBySubdirName(t, 'index-in-main-and-files') })
+test('run scenarios concurrently', function (t) {
+  // 5 asserts per test, 4 tests
+  t.plan(5 * 4)
+  testBySubdirName(t, 'index-bare')
+  testBySubdirName(t, 'index-in-main')
+  testBySubdirName(t, 'index-in-files')
+  testBySubdirName(t, 'index-in-main-and-files')
+})
 
 test('cleanup', function (t) {
   rimraf.sync(cacheBase)
