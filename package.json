@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node stress.js"
+    "test": "node stress.js",
+    "postinstall": "cd index-in-files && npm install"
   },
   "keywords": [],
   "author": "Forrest L Norvell <ogd@aoaioxxysz.net>",
