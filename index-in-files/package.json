@@ -10,5 +10,8 @@
   "license": "ISC",
   "files": [
     "index.js"
-  ]
+  ],
+  "dependencies": {
+    "noop3": "^13.8.0"
+  }
 }
