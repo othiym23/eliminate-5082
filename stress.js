@@ -20,10 +20,10 @@ function runTap (remaining) {
       Math.round((failures / iterations) * 100)
     )
     console.log('1..%d', iterations)
-    process.exit(0)
+    return
   }
 
-  console.log('# run ', iteration)
+  console.log('# run', iteration)
   var stderr = ''
   var stdout = ''
   var child = spawn(node, cmd, {})
@@ -48,8 +48,10 @@ function runTap (remaining) {
     if (code !== 0) {
       failures++
       console.log('not ok ', iteration, '- error: tap returned', code)
+      console.log('1..%s', iteration)
       if (stdout !== '') console.error(stdout)
       if (stderr !== '') console.error(stderr)
+      return
     } else {
       console.log('ok', iteration, 'no problems')
     }
