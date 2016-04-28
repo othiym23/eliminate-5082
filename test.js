@@ -88,7 +88,7 @@ function testBySubdirName (t, subdirName, filename) {
     function (err, code, stdout, stderr) {
       if (err) throw err
       t.equal(code, 0, 'npm thinks it worked')
-      t.equal(stderr, '', 'no error output')
+      if (stderr) console.error(stderr)
       var tarballName = stdout.trim()
       if (!tarballName) t.bailout('not safe to proceed without tarball name')
       var tarballPath = join(__dirname, subdirName, tarballName)
@@ -102,16 +102,20 @@ function testBySubdirName (t, subdirName, filename) {
             code, 0,
             'tar found ' + filename + ' for ' + subdirName + ' scenario'
           )
-          rimraf.sync(tarballPath)
         }
       )
     }
   )
 }
 
+test('setup', function (t) {
+  rimraf.sync(cache)
+  t.end()
+})
+
 test('run scenarios concurrently', function (t) {
   // 3 asserts per test, 5 tests
-  t.plan(3 * 6)
+  t.plan(2 * 6)
   testBySubdirName(t, 'index-bare', 'index.js')
   testBySubdirName(t, 'index-in-main', 'index.js')
   testBySubdirName(t, 'nondex-in-main', 'nondex.js')
@@ -120,7 +124,3 @@ test('run scenarios concurrently', function (t) {
   testBySubdirName(t, 'index-in-main-and-files', 'index.js')
 })
 
-test('cleanup', function (t) {
-  rimraf.sync(cache)
-  t.end()
-})
