@@ -1,7 +1,12 @@
 {
   "name": "eliminate-5082",
   "version": "1.0.0",
-  "description": "",
+  "description": "a test bed for http://github.com/npm/npm/issues/5082",
+  "private": true,
+  "repository": {
+    "url": "https://github.com/othiym23/eliminate-5082",
+    "email": "forrest@npmjs.com"
+  },
   "main": "index.js",
   "scripts": {
     "test": "node stress.js",
