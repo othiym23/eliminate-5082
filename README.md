@@ -19,6 +19,7 @@ Finally identify and eliminate the root cause of [`npm/npm#5082`](https://github
 3. seems to be happening more in Node.js 6.0.0:
   - https://twitter.com/SamVerschueren/status/725308337169006597
   - https://twitter.com/sindresorhus/status/725351897629077504
+  - Bisecting says the commit in Node.js core that made this occur more frequently is [b488b19eaf](https://github.com/nodejs/node/commit/b488b19eaf2b2e7a3ca5eccd2445e245847a5f76)
 4. is happening when a file that explicitly shouldn't be ignored is nevertheless not making it into the tarball
 
 ## current approach
